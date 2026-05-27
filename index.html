@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐资源导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* 日间模式 默认 */
+        html.light body {
+            background-color: #f5f7fa;
+        }
+        html.light .title {
+            color: #222;
+        }
+        html.light .card {
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        html.light .card a {
+            color: #333;
+        }
+        html.light .footer {
+            color: #888;
+        }
+        html.light #themeBtn {
+            background: #fff;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 夜间模式 */
+        html.dark body {
+            background-color: #121212;
+        }
+        html.dark .title {
+            color: #eee;
+        }
+        html.dark .card {
+            background: #1e1e1e;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        html.dark .card a {
+            color: #ddd;
+        }
+        html.dark .footer {
+            color: #666;
+        }
+        html.dark #themeBtn {
+            background: #2d2d2d;
+            color: #eee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        body {
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 切换按钮 */
+        #themeBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 999;
+        }
+        #themeBtn:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* 卡片网格布局 */
+        .card-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card a {
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* 底部说明 */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 明暗切换按钮 -->
+        <button id="themeBtn">🌙</button>
+
+        <h1 class="title">无损音乐分类导航</h1>
+
+        <div class="card-wrap">
+            <!-- 分类卡片 自行修改链接和文字 -->
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">华语歌曲</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">欧美金曲</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">日韩音乐</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">影视原声</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">经典老歌</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">纯音乐</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">DJ/电音</a>
+            </div>
+            <div class="card">
+                <a href="https://xxx.com" target="_blank">古风音乐</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            无损FLAC音乐资源 · 仅供个人试听
+        </div>
+    </div>
+
+    <script>
+        const html = document.documentElement;
+        const btn = document.getElementById('themeBtn');
+        // 读取本地存储的主题
+        let theme = localStorage.getItem('siteTheme') || 'light';
+
+        // 初始化主题
+        function setTheme(type) {
+            html.className = type;
+            btn.innerText = type === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('siteTheme', type);
+        }
+
+        setTheme(theme);
+
+        // 点击切换
+        btn.addEventListener('click', () => {
+            const now = html.className;
+            const next = now === 'light' ? 'dark' : 'light';
+            setTheme(next);
+        });
+    </script>
+</body>
+</html>
