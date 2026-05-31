@@ -1,50 +1,67 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+
+ 
+<>
     <meta charset="UTF-8">
     <title>百度+夸克+城通 链接提取（带一键复制）</title>
 </head>
 <body style="background:#f5f5f5; padding:20px;">
 
-<h2>✅ 粘贴带文字的分享 → 一键提取完整链接（保留所有提取码）</h2>
+<h2>✅ 粘贴一个自动换行，实时提取链接</h2>
 
-<textarea id="input" style="width:100%; height:180px; padding:10px; font-size:14px;" placeholder="在这里粘贴你复制的百度、夸克、城通分享内容"></textarea>
+<textarea id="input" style="width:100%; height:180px; padding:10px; font-size:14px;" placeholder="在这里粘贴分享链接，自动换行，自动提取"></textarea>
 
 <br><br>
-<button onclick="extract()" style="padding:12px 30px; font-size:16px; cursor:pointer;">提取干净链接</button>
+<button onclick="extractNow()" style="padding:12px 30px; font-size:16px; cursor:pointer;">提取干净链接</button>
 <button onclick="copyResult()" style="padding:12px 30px; font-size:16px; cursor:pointer; background:#42C9FA; color:#fff; border:none; border-radius:5px;">👉 一键复制</button>
+<button onclick="clearAll()" style="padding:12px 30px; font-size:16px; cursor:pointer;">清空全部</button>
 <br><br>
 
-<textarea id="output" style="width:100%; height:180px; padding:10px; font-size:14px; background:#efffef;" placeholder="提取后的完整链接（带所有提取码）"></textarea>
+<textarea id="output" style="width:100%; height:180px; padding:10px; font-size:14px; background:#efffef;" placeholder="自动提取的完整链接（自动换行累加）"></textarea>
 
-<!-- 底部超链接署名 -->
 <div style="text-align:center; margin-top:30px; font-size:14px; color:#666;">
     <a href="https://ssost.freeflarum.com" target="_blank" style="color:#0066cc; text-decoration:none;">搜搜原声SSOST</a>
 </div>
 
 <script>
-function extract() {
-    let text = document.getElementById("input").value;
+常量 文档.通过ID获取元素("输入");
+常量 输出 = 文档.通过ID获取元素("输出");
 
-    // 完美支持：百度 / 夸克 / 城通网盘（所有格式都能提取）
+// 粘贴时自动换行 + 自动提取
+输入.添加事件监听器("粘贴", 函数 () {
+    setTimeout(() => {
+        // 粘贴后自动换行
+        输入.值 = 输入.值.修剪()""
+        // 自动提取
+        提取现在(;
+    }, 100);
+});
+
+// 提取函数（自动累加，不覆盖）
+函数 提取现在() {
+    让 文本 = 输入.值;
     let reg = /https?:\/\/[a-zA-Z0-9_\-\.]*(baidu|quark|ctfile)\.(com|cn)\/(s|f)\/[a-zA-Z0-9_\-]+(?:\?pwd=[a-zA-Z0-9]+|\?p=[a-zA-Z0-9]+)?/g;
+    让 匹配 = 文本.匹配(正则)[]
+    
+    // 去重 + 换行
+    让  = ...新的 集合(匹配)];
+    输出.值 = 唯一.连接("\n");
+}
 
-    let result = text.match(reg);
-
-    if (result) {
-        document.getElementById("output").value = result.join("\n");
-    } else {
-        document.getElementById("output").value = "未找到网盘链接";
+// 一键复制
+异步 函数 复制结果() {
+    尝试 ：
+        等待 导航器.剪贴板.写入文本(输出.值);
+        警报("复制成功！");
+    } 捕获 (e) {
+        警报("复制成功！")
     }
 }
 
-function copyResult() {
-    let output = document.getElementById("output");
-    output.select();
-    document.execCommand("copy");
-    alert("复制成功！直接粘贴即可使用");
+// 清空
+函数 清除所有) {
+    输入.值 = "";
+    输出.值 = "";
 }
-</script>
+</脚本>
 
-</body>
-</html>
+</身体>
